@@ -1,0 +1,6 @@
+group,name,how_to,image,enabled,equipment
+legs,Sentadillas,,https://wmprietopardo.github.io/fxsport-assets/Images/sentadillas.png,TRUE,no
+upper,5 biceps + 5 Triceps,,https://wmprietopardo.github.io/fxsport-assets/Images/biceps+triceps.png,TRUE,dumbbells
+core,Crunch + Puente,,https://wmprietopardo.github.io/fxsport-assets/Images/crunch+puente.png,TRUE,no
+legs,Desplante Atras con Rotacion,,https://wmprietopardo.github.io/fxsport-assets/Images/desplante_atras_rotacion.png,TRUE,no
+upper,Push Up,,https://wmprietopardo.github.io/fxsport-assets/Images/push_up_01.png,TRUE,no
