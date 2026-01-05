@@ -1,16 +1,17 @@
 group,name,how_to,image,enabled,equipment
-legs,Sentadillas,,https://wmprietopardo.github.io/fxsport-assets/Images/sentadillas.png,TRUE,no
-upper,5 biceps + 5 Triceps,,https://wmprietopardo.github.io/fxsport-assets/Images/biceps+triceps.png,TRUE,dumbbells
-core,Crunch + Puente,,https://wmprietopardo.github.io/fxsport-assets/Images/crunch+puente.png,TRUE,no
-legs,Desplante Atras con Rotacion,,https://wmprietopardo.github.io/fxsport-assets/Images/desplante_atras_rotacion.png,TRUE,no
-upper,Push Up,,https://wmprietopardo.github.io/fxsport-assets/Images/push_up_01.png,TRUE,no
-core,Abdominales Cangrejo,,https://wmprietopardo.github.io/fxsport-assets/Images/abdominales_cangrejo_1.png,TRUE,no
-upper,Biceps Alterno,,https://wmprietopardo.github.io/fxsport-assets/Images/biceps_alterno.png,TRUE,dumbbells
-legs,Power Squat,,https://wmprietopardo.github.io/fxsport-assets/Images/power_squat.png,TRUE,no
-core,Sit Up,,https://wmprietopardo.github.io/fxsport-assets/Images/sit_up.png,TRUE,no
-upper,remo a 1 brazo - serrucho,,https://wmprietopardo.github.io/fxsport-assets/Images/remo_a_1_brazo_serrucho.png,TRUE,kettlebell
-core,Sprawl,,https://wmprietopardo.github.io/fxsport-assets/Images/sprawl.png,TRUE,no
-full,Tijeras en el Lugar,,https://wmprietopardo.github.io/fxsport-assets/Images/tijeras_en_el_lugar.png,TRUE,no
-core,piques laterales,,https://wmprietopardo.github.io/fxsport-assets/Images/piques_laterales.png,TRUE,medicine ball
-upper,triceps KB,,https://wmprietopardo.github.io/fxsport-assets/Images/triceps_kb.png,TRUE,kettlebell
-core,puente alterno,,https://wmprietopardo.github.io/fxsport-assets/Images/puente_alterno.png,TRUE,no
+legs,Sentadillas,,https://wmprietopardo.github.io/fxsport/Images/sentadillas.png,TRUE,no
+upper,5 biceps + 5 Triceps,,https://wmprietopardo.github.io/fxsport/Images/biceps+triceps.png,TRUE,dumbbells
+core,Crunch + Puente,,https://wmprietopardo.github.io/fxsport/Images/crunch+puente.png,TRUE,no
+legs,Desplante Atras con Rotacion,,https://wmprietopardo.github.io/fxsport/Images/desplante_atras_rotacion.png,TRUE,no
+upper,Push Up,,https://wmprietopardo.github.io/fxsport/Images/push_up_01.png,TRUE,no
+core,Abdominales Cangrejo,,https://wmprietopardo.github.io/fxsport/Images/abdominales_cangrejo_1.png,TRUE,no
+upper,Biceps Alterno,,https://wmprietopardo.github.io/fxsport/Images/biceps_alterno.png,TRUE,dumbbells
+legs,Power Squat,,https://wmprietopardo.github.io/fxsport/Images/power_squat.png,TRUE,no
+core,Sit Up,,https://wmprietopardo.github.io/fxsport/Images/sit_up.png,TRUE,no
+upper,remo a 1 brazo - serrucho,,https://wmprietopardo.github.io/fxsport/Images/remo_a_1_brazo_serrucho.png,TRUE,kettlebell
+core,Sprawl,,https://wmprietopardo.github.io/fxsport/Images/sprawl.png,TRUE,no
+full,Tijeras en el Lugar,,https://wmprietopardo.github.io/fxsport/Images/tijeras_en_el_lugar.png,TRUE,no
+core,piques laterales,,https://wmprietopardo.github.io/fxsport/Images/piques_laterales.png,TRUE,medicine ball
+upper,triceps KB,,https://wmprietopardo.github.io/fxsport/Images/triceps_kb.png,TRUE,kettlebell
+core,puente alterno,,https://wmprietopardo.github.io/fxsport/Images/puente_alterno.png,TRUE,no
+
