@@ -26,6 +26,7 @@ const SFX_REST_START =
 const SFX_WORKOUT_END =
   "https://wmprietopardo.github.io/fxsport/Sounds/end_exersice.wav";
 
+// Videos
 const VIDEO_WARMUP_URL =
   "https://wmprietopardo.github.io/fxsport-assets/Videos/calentamiento.mp4";
 const VIDEO_STRETCH_URL =
@@ -674,59 +675,23 @@ function buildTabataPlan({ readySec, pairs }){
     const a = pair[0];
     const b = pair[1];
 
-    // 4 rounds of a/b
-    // Sequence: a work, rest, b work, rest ... last work no rest
     let workCount = 0;
     for(let r = 0; r < TABATA_ROUNDS; r++){
       // a
-      blocks.push({
-        type: "work",
-        seconds: TABATA_WORK,
-        ex: a,
-        setIndex: s,
-        exIndex: workCount % 2, // 0 or 1 within the pair
-        n: 2,
-        sets: 3
-      });
+      blocks.push({ type: "work", seconds: TABATA_WORK, ex: a, setIndex: s, exIndex: workCount % 2, n: 2, sets: 3 });
       workCount++;
-      blocks.push({
-        type: "rest",
-        seconds: TABATA_REST,
-        ex: a,
-        setIndex: s,
-        exIndex: workCount % 2,
-        n: 2,
-        sets: 3
-      });
+      blocks.push({ type: "rest", seconds: TABATA_REST, ex: a, setIndex: s, exIndex: workCount % 2, n: 2, sets: 3 });
 
       // b
       const isLastB = (r === TABATA_ROUNDS - 1);
-      blocks.push({
-        type: "work",
-        seconds: TABATA_WORK,
-        ex: b,
-        setIndex: s,
-        exIndex: workCount % 2,
-        n: 2,
-        sets: 3
-      });
+      blocks.push({ type: "work", seconds: TABATA_WORK, ex: b, setIndex: s, exIndex: workCount % 2, n: 2, sets: 3 });
       workCount++;
 
-      // Set ends immediately after last work
       if(!isLastB){
-        blocks.push({
-          type: "rest",
-          seconds: TABATA_REST,
-          ex: b,
-          setIndex: s,
-          exIndex: workCount % 2,
-          n: 2,
-          sets: 3
-        });
+        blocks.push({ type: "rest", seconds: TABATA_REST, ex: b, setIndex: s, exIndex: workCount % 2, n: 2, sets: 3 });
       }
     }
 
-    // Between sets: 15s rest (not after last set)
     if(s < 2){
       blocks.push({
         type: "between_sets",
@@ -828,7 +793,6 @@ function renderBlock(block){
     if(block.type === "between_sets"){
       setLineEl.textContent = `Between sets. Next is set ${Math.min(3, (block.setIndex + 2))}/3.`;
     } else if(block.setIndex >= 0){
-      // For Tabata: n=2 per set. For normal: n=N.
       setLineEl.textContent = `Set ${block.setIndex + 1}/${block.sets}.`;
     } else {
       setLineEl.textContent = " ";
@@ -951,7 +915,6 @@ function resumeCurrentBlock(){
 
   running = true;
 
-  // Keep UI as-is, just continue ticking
   clearTickInterval();
   tickHandle = setInterval(tickStep, 100);
 
@@ -1022,7 +985,6 @@ function tickStep(){
 
     const nextType = plan[idx].type;
 
-    // Only play start sounds when actually transitioning to a new block
     if(nextType !== "work"){
       sRestStart();
     } else {
@@ -1038,8 +1000,8 @@ function updateMetaPreview(){
   const readySec = $("readySec") ? Number($("readySec").value) : 15;
 
   if(currentProgramKey === "tabata6"){
-    const workPerSet = TABATA_WORK * (TABATA_ROUNDS * 2); // 8 work blocks per set
-    const restsPerSet = TABATA_REST * ((TABATA_ROUNDS * 2) - 1); // 7 rests per set (no rest after last work)
+    const workPerSet = TABATA_WORK * (TABATA_ROUNDS * 2);
+    const restsPerSet = TABATA_REST * ((TABATA_ROUNDS * 2) - 1);
     const setTotal = workPerSet + restsPerSet;
     const session = (readySec || 0) + (setTotal * 3) + (TABATA_BETWEEN_SETS_REST * 2);
     const workTotal = workPerSet * 3;
@@ -1099,7 +1061,6 @@ function buildWorkout(){
 
   const presetKey = currentProgramKey || getPresetKey();
 
-  // Tabata path (balanced only)
   if(presetKey === "tabata6"){
     const readySec = $("readySec") ? Number($("readySec").value) : 15;
 
@@ -1120,7 +1081,6 @@ function buildWorkout(){
     return;
   }
 
-  // Normal programs
   const area51NoFull = presetKey === "area51";
 
   const enabled = area51NoFull
@@ -1178,6 +1138,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if($("spotifyEmbed")) $("spotifyEmbed").src = SPOTIFY_EMBED_URL;
   if($("openSpotify")) $("openSpotify").href = SPOTIFY_PLAYLIST_URL;
 
+  // Videos
+  const warmup = $("vidWarmup");
+  const stretch = $("vidStretch");
+  if(warmup) warmup.src = VIDEO_WARMUP_URL;
+  if(stretch) stretch.src = VIDEO_STRETCH_URL;
+
   initRing();
   setRing("rest", 0);
   if($("timer")) $("timer").textContent = "00:00";
@@ -1212,7 +1178,6 @@ document.addEventListener("DOMContentLoaded", () => {
       try{
         await loadAll();
 
-        // Initialize UI based on current program
         currentProgramKey = getPresetKey();
 
         const totalMin = $("totalMin") ? Number($("totalMin").value) : 12;
