@@ -75,13 +75,15 @@ body{
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "setup workout"
-      "list  music";
+      "list  music"
+      "videos videos";
     align-items:start;
   }
   .card--setup{ grid-area: setup; }
   .card--workout{ grid-area: workout; }
   .card--list{ grid-area: list; }
   .card--music{ grid-area: music; }
+  .card--videos{ grid-area: videos; }
 }
 
 /* Mobile */
@@ -92,12 +94,14 @@ body{
       "setup"
       "workout"
       "list"
-      "music";
+      "music"
+      "videos";
   }
   .card--setup{ grid-area: setup; }
   .card--workout{ grid-area: workout; }
   .card--list{ grid-area: list; }
   .card--music{ grid-area: music; }
+  .card--videos{ grid-area: videos; }
 }
 
 .card{
