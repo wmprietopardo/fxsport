@@ -126,6 +126,7 @@
         <div class="row row--tight">
           <a class="btn btn--ghost btn--link" href="#list">Workout list</a>
           <a class="btn btn--ghost btn--link" href="#music">Spotify</a>
+          <a class="btn btn--ghost btn--link" href="#videos">Videos</a>
         </div>
       </section>
 
@@ -214,6 +215,38 @@
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
+      </section>
+
+      <!-- Videos -->
+      <section class="card card--videos" id="videos">
+        <div class="card__header">
+          <div class="card__title">Videos</div>
+          <div class="card__sub">Warm up and stretching.</div>
+        </div>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <figcaption class="video-title">Calentamiento</figcaption>
+            <video
+              id="vidWarmup"
+              class="video"
+              controls
+              playsinline
+              preload="metadata"
+            ></video>
+          </figure>
+
+          <figure class="video-card">
+            <figcaption class="video-title">Estiramiento</figcaption>
+            <video
+              id="vidStretch"
+              class="video"
+              controls
+              playsinline
+              preload="metadata"
+            ></video>
+          </figure>
+        </div>
       </section>
     </main>
   </div>
