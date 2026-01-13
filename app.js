@@ -1187,10 +1187,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if($("spotifyEmbed")) $("spotifyEmbed").src = SPOTIFY_EMBED_URL;
   if($("openSpotify")) $("openSpotify").href = SPOTIFY_PLAYLIST_URL;
 
-  const v = document.querySelector('meta[name="fxsport-version"]')?.content || "";
-  if (document.getElementById("meta") && v) {
-     document.getElementById("meta").textContent = `Version: ${v}. ` + document.getElementById("meta").textContent;
-  }
+  //const v = document.querySelector('meta[name="fxsport-version"]')?.content || "";
+  //if (document.getElementById("meta") && v) {
+  //   document.getElementById("meta").textContent = `Version: ${v}. ` + document.getElementById("meta").textContent;
+  //}
   
   // Videos: only set src when user hits Play
   const warmup = document.getElementById("vidWarmup");
