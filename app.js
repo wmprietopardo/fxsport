@@ -87,6 +87,14 @@ function getPresetKey(){
   return currentProgramKey;
 }
 
+async function resumeAudioIfNeeded(){
+  if(!audioCtx) return;
+  if(audioCtx.state !== "running"){
+    try { await audioCtx.resume(); } catch(e) {}
+  }
+}
+
+
 // ---------- WebAudio
 let audioCtx = null;
 let masterGain = null;
@@ -151,11 +159,10 @@ async function ensureAudioReady(){
 async function playBuffer(kind){
   const soundOn = $("soundOn");
   if(soundOn && !soundOn.checked) return;
-  if(!audioCtx || !compressor) return;
 
-  if(audioCtx.state !== "running"){
-    try { await audioCtx.resume(); } catch(e) {}
-  }
+  // Ensure context exists and is resumed
+  await ensureAudioReady();
+  await resumeAudioIfNeeded();
 
   const buf = sfxBuffers[kind];
   if(!buf) return;
@@ -170,6 +177,7 @@ async function playBuffer(kind){
   gain.connect(compressor);
   src.start(0);
 }
+
 
 function sWorkStart(){ playBuffer("work"); }
 function sRestStart(){ playBuffer("rest"); }
@@ -1151,59 +1159,53 @@ function buildWorkout(){
   keepTimerFocus();
 }
 
-// ---------- Video wiring (lazy load on play, so it does not interfere with audio)
-let warmupVideoSrcSet = false;
-let stretchVideoInitialized = false;
-
-function setupWarmupVideo(){
-  const v = document.getElementById("vidWarmup");
-  if(!v || warmupVideoSrcSet) return;
-  warmupVideoSrcSet = true;
-
-  v.preload = "none";
-  v.playsInline = true;
-  v.src = VIDEO_WARMUP_URL;
-}
-
-function setupStretchVideo(){
-  const v = document.getElementById("vidStretch");
-  if(!v || stretchVideoInitialized) return;
-  stretchVideoInitialized = true;
-
-  v.preload = "none";
-  v.playsInline = true;
-  v.src = VIDEO_STRETCH_1_URL;
-
-  v.addEventListener("ended", () => {
-    v.src = VIDEO_STRETCH_2_URL;
-
-    const p = v.play();
-    if(p && typeof p.catch === "function") p.catch(() => {});
-  });
-}
-
-// ---------- Init + wiring
-document.addEventListener("DOMContentLoaded", () => {
-  if($("spotifyEmbed")) $("spotifyEmbed").src = SPOTIFY_EMBED_URL;
-  if($("openSpotify")) $("openSpotify").href = SPOTIFY_PLAYLIST_URL;
-
-  //const v = document.querySelector('meta[name="fxsport-version"]')?.content || "";
-  //if (document.getElementById("meta") && v) {
-  //   document.getElementById("meta").textContent = `Version: ${v}. ` + document.getElementById("meta").textContent;
-  //}
-  
-  // Videos: only set src when user hits Play
+// ---------- Video wiring (reliable)
+function initVideos(){
   const warmup = document.getElementById("vidWarmup");
   if(warmup){
-    warmup.preload = "none";
-    warmup.addEventListener("play", setupWarmupVideo, { once: true });
+    warmup.preload = "metadata";     // or "none" if you want, but src must exist
+    warmup.playsInline = true;
+    warmup.src = VIDEO_WARMUP_URL;
+    warmup.load();
   }
 
   const stretch = document.getElementById("vidStretch");
   if(stretch){
-    stretch.preload = "none";
-    stretch.addEventListener("play", setupStretchVideo, { once: true });
+    stretch.preload = "metadata";
+    stretch.playsInline = true;
+    stretch.src = VIDEO_STRETCH_1_URL;
+    stretch.load();
+
+    stretch.addEventListener("ended", () => {
+      // Switching sources mid-session can be blocked on iOS sometimes.
+      // This will work in many cases, but if it fails, user can hit Play again.
+      stretch.src = VIDEO_STRETCH_2_URL;
+      stretch.load();
+      const p = stretch.play();
+      if(p && typeof p.catch === "function") p.catch(() => {});
+    });
   }
+}
+
+
+// ---------- Init + wiring
+document.addEventListener("DOMContentLoaded", () => {
+
+  const resumeEvents = ["pointerdown", "touchstart", "keydown"];
+    resumeEvents.forEach(evt => {
+        window.addEventListener(evt, () => { resumeAudioIfNeeded(); }, { passive: true });
+    });
+
+    window.addEventListener("focus", () => { resumeAudioIfNeeded(); });
+       document.addEventListener("visibilitychange", () => {
+       if(!document.hidden) resumeAudioIfNeeded(); 
+    });
+
+  
+  if($("spotifyEmbed")) $("spotifyEmbed").src = SPOTIFY_EMBED_URL;
+  if($("openSpotify")) $("openSpotify").href = SPOTIFY_PLAYLIST_URL;
+
+  initVideos();
 
   initRing();
   setRing("rest", 0);
